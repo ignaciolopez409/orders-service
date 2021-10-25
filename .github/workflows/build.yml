@@ -39,10 +39,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-              -Dsonar.projectKey=$GITHUB_REPOSITORY-obligatorio
-              -Dsonar.organization=obligatorio-devops-2021 \
-              -Dsonar.host.url=https\://sonarcloud.io
+        run: ./mvnw -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=$GITHUB_REPOSITORY-obligatorio -Dsonar.organization=obligatorio-devops-2021 -Dsonar.host.url="https\://sonarcloud.io"
   build_and_test_and_push:
     runs-on: ubuntu-latest
     permissions:
@@ -66,7 +63,5 @@ jobs:
       - name: Build project with Maven
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./mvnw -B package -Pjib \
-              -Djib.to.auth.username=${{ secrets.HUB_DOCKER_USERNAME }} \
-              -Djib.to.auth.password=${{ secrets.HUB_DOCKER_PASSWORD }}
+        run: ./mvnw -B package -Pjib -Djib.to.auth.username=${{ secrets.HUB_DOCKER_USERNAME }} -Djib.to.auth.password=${{ secrets.HUB_DOCKER_PASSWORD }}
               
