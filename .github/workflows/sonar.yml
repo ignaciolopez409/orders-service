@@ -25,8 +25,8 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Run Analysis and Wait for Quality Gate
         run: |
-          ./mvnw -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar\
-          -Dsonar.host.url="https://sonarcloud.io"\
-          -Dsonar.organization=obligatorio-devops-2021\
-          -Dsonar.projectKey=orders-service-obligatorio\
+          ./mvnw -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+          -Dsonar.host.url="https://sonarcloud.io" \
+          -Dsonar.organization=obligatorio-devops-2021 \
+          -Dsonar.projectKey=orders-service-obligatorio \
           -Dsonar.qualitygate.wait=true
