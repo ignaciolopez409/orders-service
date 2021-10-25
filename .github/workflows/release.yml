@@ -12,7 +12,7 @@ on:
   pull_request:
     types: [ opened, synchronize, reopened ]
 jobs:
-  sendSonar:
+  QUALITY_GATES_&_TEST:
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, '[sonar skip]')"
     steps:
@@ -43,7 +43,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: ./mvnw -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=orders-service-obligatorio -Dsonar.organization=obligatorio-devops-2021 -Dsonar.host.url="https://sonarcloud.io"
-  build_and_test_and_push:
+  RELEASE_&_PUSH-IMAGE:
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, '[ci skip]')"
     needs: [sendSonar]
