@@ -9,9 +9,9 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       SONAR_HOST_URL: "https://sonarcloud.io"
       SONAR_PROPERTIES: >
-        sonar.organization=obligatorio-devops-2021
-        sonar.projectKey=orders-service-obligatorio
-        sonar.qualitygate.wait=true
+        sonar.organization=obligatorio-devops-2021\n
+        sonar.projectKey=orders-service-obligatorio\n
+        sonar.qualitygate.wait=true\n
         sonar.host.url="https://sonarcloud.io"
     steps:
       - uses: actions/checkout@v2
@@ -31,5 +31,5 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Analyze with SonarCloud
         run: >
-          echo $SONAR_PROPERTIES > sonar-project.properties
+          echo -e $SONAR_PROPERTIES > sonar-project.properties
           ./mvnw -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar"
