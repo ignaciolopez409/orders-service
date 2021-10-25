@@ -41,7 +41,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./mvnw -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=$GITHUB_REPOSITORY-obligatorio -Dsonar.organization=obligatorio-devops-2021 -Dsonar.host.url="https://sonarcloud.io"
+        run: ./mvnw -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=orders-service-obligatorio -Dsonar.organization=obligatorio-devops-2021 -Dsonar.host.url="https://sonarcloud.io" -Dsonar.branch.name=master
   build_and_test_and_push:
     runs-on: ubuntu-latest
     permissions:
