@@ -76,5 +76,5 @@ jobs:
         with:
           git-release-bot-name: "Github-Release"
           git-release-bot-email: "release@github.com"
-          maven-args: "release:prepare release:perform -Pjib -Darguments=\"-Djib.to.auth.username=${{ secrets.HUB_DOCKER_USERNAME }} -Djib.to.auth.password=${{ secrets.HUB_DOCKER_PASSWORD }}\""
+          maven-args: "-Pjib -Darguments=\"-Djib.to.auth.username=${{ secrets.HUB_DOCKER_USERNAME }} -Djib.to.auth.password=${{ secrets.HUB_DOCKER_PASSWORD }}\""
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
