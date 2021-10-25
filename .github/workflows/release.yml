@@ -62,11 +62,12 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       # Package with Maven & jib profile to build & push docker image
-      - name: setup git config
-        run: |
-          # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
-          git config user.name "GitHub Actions Release"
-          git config user.email "github@github.com"
+      - uses: oleksiyrudenko/gha-git-credentials@v2-latest
+        with:
+          global: true
+          name: 'Github Release'
+          email: 'release@github.com'
+          token: '${{ secrets.GITHUB_TOKEN }}'
       - name: Build project with Maven
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
