@@ -42,7 +42,7 @@ jobs:
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
               -Dsonar.projectKey=$GITHUB_REPOSITORY-obligatorio
               -Dsonar.organization=obligatorio-devops-2021 \
-              -Dsonar.host.url=https://sonarcloud.io
+              -Dsonar.host.url=https\://sonarcloud.io
   build_and_test_and_push:
     runs-on: ubuntu-latest
     permissions:
