@@ -46,12 +46,15 @@ jobs:
   build_and_test_and_push:
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, '[ci skip]')"
+    needs: [sendSonar]
     permissions:
       contents: read
       packages: write
     steps:
       # Checkout
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       # JDK 8 para build
       - name: Set up JDK 8
         uses: actions/setup-java@v1
@@ -64,11 +67,6 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       # Package with Maven & jib profile to build & push docker image
-      - uses: oleksiyrudenko/gha-git-credentials@v2-latest
-        with:
-          name: 'Github Release'
-          email: 'release@github.com'
-          token: "${{ secrets.GITHUB_TOKEN }}"
       - name: Release
         uses: qcastel/github-actions-maven-release@master
         with:
