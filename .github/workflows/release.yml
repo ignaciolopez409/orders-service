@@ -13,40 +13,13 @@ on:
     types: [ opened, synchronize, reopened ]
 jobs:
   QUALITY_GATES_AND_TEST:
-    runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, '[sonar skip]')"
-    steps:
-      # Checkout
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      # JDK 11 para Sonar
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
-      - name: Cache SonarCloud packages
-        uses: actions/cache@v1
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
-      - name: Cache Maven packages
-        uses: actions/cache@v1
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
-      # Envío Sonar
-      - name: Build and analyze
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./mvnw -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=orders-service-obligatorio -Dsonar.organization=obligatorio-devops-2021 -Dsonar.host.url="https://sonarcloud.io"
+    call-sonar:
+      uses: $GITHUB_REPOSITORY/.github/workflows/sonar.yml@master
   RELEASE_AND_PUSH-IMAGE:
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, '[ci skip]')"
-    needs: [sendSonar]
+    needs: [QUALITY_GATES_AND_TEST]
     permissions:
       contents: read
       packages: write
