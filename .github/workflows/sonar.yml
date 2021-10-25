@@ -29,6 +29,6 @@ jobs:
           sonar.organization=obligatorio-devops-2021
           sonar.projectKey=orders-service-obligatorio
           sonar.qualitygate.wait=true
-          sonar.host.url=\"https://sonarcloud.io\"
+          sonar.host.url=https://sonarcloud.io
           EOF
           ./mvnw -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar"
