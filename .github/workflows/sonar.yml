@@ -1,4 +1,5 @@
 name: CI Build
+on: never
 jobs:
   QUALITY_GATES_AND_TEST:
     runs-on: ubuntu-latest
