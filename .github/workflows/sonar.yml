@@ -24,13 +24,12 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-      - name: Create sonar-project.properties
-        run: |
-          echo sonar.organization=obligatorio-devops-2021 > sonar-project.properties
-          echo sonar.projectKey=orders-service-obligatorio >> sonar-project.properties
-          echo sonar.java.binaries=target >> sonar-project.properties
-      - name: SonarQube Scan
-        uses: sonarsource/sonarqube-scan-action@master
-      - name: SonarQube Quality Gate check
-        uses: sonarsource/sonarqube-quality-gate-action@master
-        timeout-minutes: 10
+      - name: Analyze with SonarCloud
+        uses: sonarsource/sonarcloud-github-action@master
+        with:
+          args: >
+            -Dsonar.organization=obligatorio-devops-2021
+            -Dsonar.projectKey=orders-service-obligatorio
+            -Dsonar.qualitygate.wait=true
+            -Dsonar.sources=src/
+            -Dsonar.verbose=true
