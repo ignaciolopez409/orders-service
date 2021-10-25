@@ -66,6 +66,6 @@ jobs:
         with:
           name: 'Github Release'
           email: 'release@github.com'
-          token: '${{ secrets.GITHUB_TOKEN }}'
+          token: "${{ secrets.GITHUB_TOKEN }}"
       - name: Build project with Maven
         run: ./mvnw -B release:prepare release:perform -Pjib -Darguments="-Djib.to.auth.username=${{ secrets.HUB_DOCKER_USERNAME }} -Djib.to.auth.password=${{ secrets.HUB_DOCKER_PASSWORD }}"
