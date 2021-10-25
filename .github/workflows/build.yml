@@ -14,6 +14,7 @@ on:
 ENV:
 jobs:
   sendSonar:
+    runs-on: ubuntu-latest
     steps:
       # Checkout
       - uses: actions/checkout@v2
@@ -22,12 +23,27 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Cache Maven packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
       # Envío Sonar
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=$GITHUB_REPOSITORY
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+              -Dsonar.projectKey=$GITHUB_REPOSITORY-obligatorio
+              -Dsonar.organization=obligatorio-devops-2021 \
+              -Dsonar.host.url=https://sonarcloud.io
   build_and_test_and_push:
     runs-on: ubuntu-latest
     permissions:
@@ -41,6 +57,17 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 8
+      - name: Cache Maven packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
       # Package con Maven
       - name: Build project with Maven
-        run: ./mvnw -B package -Pjib -Djib.to.auth.username=${{ secrets.HUB_DOCKER_USERNAME }} -Djib.to.auth.password=${{ secrets.HUB_DOCKER_PASSWORD }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: ./mvnw -B package -Pjib \
+              -Djib.to.auth.username=${{ secrets.HUB_DOCKER_USERNAME }} \
+              -Djib.to.auth.password=${{ secrets.HUB_DOCKER_PASSWORD }}
+              
