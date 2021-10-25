@@ -69,8 +69,6 @@ jobs:
           name: 'Github Release'
           email: 'release@github.com'
           token: "${{ secrets.GITHUB_TOKEN }}"
-      - name: Build project with Maven
-        run: ./mvnw -B "
       - name: Release
         uses: qcastel/github-actions-maven-release@master
         with:
