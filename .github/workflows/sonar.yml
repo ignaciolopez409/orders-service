@@ -23,12 +23,15 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-      - name: Create env file
+      - name: Create Sonar Properties
         run: |
           cat << EOF > sonar-project.properties
           sonar.organization=obligatorio-devops-2021
           sonar.projectKey=orders-service-obligatorio
           sonar.qualitygate.wait=true
-          sonar.host.url=https://sonarcloud.io
+          sonar.host.url="https\://sonarcloud.io"
           EOF
+          cat sonar-project.properties
+      - name: Run Analysis and Wait for Quality Gate
+        run: |
           ./mvnw -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
