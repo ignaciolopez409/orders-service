@@ -10,7 +10,6 @@ on:
     branches:
       - develop
       - test*
-      - master
   pull_request:
     types: [ opened, synchronize, reopened ]
 jobs:
