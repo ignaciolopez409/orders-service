@@ -64,11 +64,8 @@ jobs:
       # Package with Maven & jib profile to build & push docker image
       - uses: oleksiyrudenko/gha-git-credentials@v2-latest
         with:
-          global: true
           name: 'Github Release'
           email: 'release@github.com'
           token: '${{ secrets.GITHUB_TOKEN }}'
       - name: Build project with Maven
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./mvnw -B release:prepare release:perform -Pjib -Darguments="-Djib.to.auth.username=${{ secrets.HUB_DOCKER_USERNAME }} -Djib.to.auth.password=${{ secrets.HUB_DOCKER_PASSWORD }}"

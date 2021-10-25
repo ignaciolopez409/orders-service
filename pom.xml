@@ -18,8 +18,8 @@
 	</properties>
 
     <scm>
-        <connection>scm:git:git@github.com:ignaciolopez409/orders-service.git</connection>
-        <developerConnection>scm:git:git@github.com:ignaciolopez409/orders-service.git</developerConnection>
+        <connection>scm:git:https://github.com/ignaciolopez409/orders-service</connection>
+        <developerConnection>scm:git:https://github.com/ignaciolopez409/orders-service</developerConnection>
         <url>https://github.com/ignaciolopez409/orders-service</url>
     </scm>
 
