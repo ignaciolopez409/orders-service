@@ -28,6 +28,7 @@ jobs:
         run: |
           echo sonar.organization=obligatorio-devops-2021 > sonar-project.properties
           echo sonar.projectKey=orders-service-obligatorio >> sonar-project.properties
+          echo sonar.java.binaries=target >> sonar-project.properties
       - name: SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@master
       - name: SonarQube Quality Gate check
