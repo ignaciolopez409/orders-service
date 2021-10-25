@@ -23,7 +23,7 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-      - name: Analyze with SonarCloud
+      - name: Create env file
         run: |
           cat << EOF > sonar-project.properties
           sonar.organization=obligatorio-devops-2021
