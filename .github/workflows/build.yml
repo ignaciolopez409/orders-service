@@ -64,5 +64,8 @@ jobs:
       - name: Build project with Maven
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./mvnw -B package -Pjib -Djib.to.auth.username=${{ secrets.HUB_DOCKER_USERNAME }} -Djib.to.auth.password=${{ secrets.HUB_DOCKER_PASSWORD }}
-              
+        run: >
+        ./mvnw -B package \
+        -Pjib \
+        -Djib.to.auth.username=${{ secrets.HUB_DOCKER_USERNAME }} \
+        -Djib.to.auth.password=${{ secrets.HUB_DOCKER_PASSWORD }}
