@@ -6,7 +6,7 @@ on:
   pull_request:
     types: [ opened, synchronize, reopened ]
 jobs:
-  QUALITY_GATES_AND_TEST:
+  QUALITY_GATES_AND_TESTS:
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, '[sonar skip]')"
     env:
@@ -52,6 +52,8 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 8
+          cache: 'maven'
+          distribution: 'zulu'
       - name: Cache Maven packages
         uses: actions/cache@v1
         with:
