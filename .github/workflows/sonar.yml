@@ -31,4 +31,4 @@ jobs:
           sonar.qualitygate.wait=true
           sonar.host.url=https://sonarcloud.io
           EOF
-          ./mvnw -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar"
+          ./mvnw -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
