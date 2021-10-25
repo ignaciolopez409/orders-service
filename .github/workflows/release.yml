@@ -13,11 +13,34 @@ on:
     types: [ opened, synchronize, reopened ]
 jobs:
   QUALITY_GATES_AND_TEST:
+    runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, '[sonar skip]')"
-    call-sonar:
-      uses: "$GITHUB_REPOSITORY/.github/workflows/sonar.yml@master"
-      secrets:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Cache Maven packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+      - name: Run Analysis and Wait for Quality Gate
+        run: |
+          ./mvnw -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+          -Dsonar.host.url="https://sonarcloud.io" \
+          -Dsonar.organization=obligatorio-devops-2021 \
+          -Dsonar.projectKey=orders-service-obligatorio \
+          -Dsonar.qualitygate.wait=true
   RELEASE_AND_PUSH-IMAGE:
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, '[ci skip]')"
