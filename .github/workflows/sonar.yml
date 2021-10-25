@@ -27,7 +27,7 @@ jobs:
         env:
           FILE_NAME: "sonar-project.properties"
           FILE_DATA: >
-            sonar.projectKey=orders-service-obligatorio
+            sonar.projectKey=orders-service-obligatorio\n
             sonar.organization=obligatorio-devops-2021
       - name: SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@master
