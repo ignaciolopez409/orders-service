@@ -24,14 +24,11 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-      - name: Create Sonar Properties
-        run: |
-          cat << EOF > sonar-project.properties
-          sonar.organization=obligatorio-devops-2021
-          sonar.projectKey=orders-service-obligatorio
-          sonar.qualitygate.wait=true
-          EOF
       - name: Run Analysis and Wait for Quality Gate
         run: |
           cat sonar-project.properties
-          ./mvnw -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.host.url="https://sonarcloud.io"
+          ./mvnw -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar\
+          -Dsonar.host.url="https://sonarcloud.io"\
+          -Dsonar.organization=obligatorio-devops-2021\
+          -Dsonar.projectKey=orders-service-obligatorio\
+          -Dsonar.qualitygate.wait=true
