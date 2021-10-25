@@ -19,7 +19,7 @@ jobs:
           sonar.qualitygate.wait=true
           sonar.host.url="https\://sonarcloud.io"
           EOF
-          cat sonar-project.properties
       - name: Run Analysis and Wait for Quality Gate
         run: |
+          cat sonar-project.properties
           ./mvnw -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
