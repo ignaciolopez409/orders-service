@@ -8,6 +8,11 @@ jobs:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       SONAR_HOST_URL: "https://sonarcloud.io"
+      SONAR_PROPERTIES: >
+        sonar.organization=obligatorio-devops-2021
+        sonar.projectKey=orders-service-obligatorio
+        sonar.qualitygate.wait=true
+        sonar.host.url="https://sonarcloud.io"
     steps:
       - uses: actions/checkout@v2
         with:
@@ -25,11 +30,6 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Analyze with SonarCloud
-        uses: sonarsource/sonarcloud-github-action@master
-        with:
-          args: >
-            -Dsonar.organization=obligatorio-devops-2021
-            -Dsonar.projectKey=orders-service-obligatorio
-            -Dsonar.qualitygate.wait=true
-            -Dsonar.sources=src/
-            -Dsonar.verbose=true
+        run: >
+          echo $SONAR_PROPERTIES > sonar-project.properties
+          ./mvnw -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar"
