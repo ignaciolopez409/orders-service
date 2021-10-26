@@ -53,7 +53,7 @@ jobs:
         with:
           java-version: 8
           cache: 'maven'
-          distribution: 'zulu'
+          server-id: github
       - name: Cache Maven packages
         uses: actions/cache@v1
         with:
