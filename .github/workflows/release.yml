@@ -1,4 +1,4 @@
-name: CI Build
+name: CI Release
 on:
   push:
     branches:
@@ -62,11 +62,9 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       # Package with Maven & jib profile to build & push docker image
       - name: Release
+        run: ./mvnw -B release:prepare release:perform
         env:
           RELEASE_ARGUMENTS: -DskipTests=true -Djib.to.auth.username=${{ secrets.HUB_DOCKER_USERNAME }} -Djib.to.auth.password=${{ secrets.HUB_DOCKER_PASSWORD }}
-        uses: qcastel/github-actions-maven-release@master
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          git-release-bot-name: "Github-Release"
-          git-release-bot-email: "release@github.com"
           maven-args: "-Pjib -Darguments=\"$RELEASE_ARGUMENTS\""
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
