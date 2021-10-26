@@ -60,6 +60,10 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+      - name: Set user and email
+        run: |
+          git config --global user.name "${{ github.actor}}
+          git config --global user.email "${{ github.actor }}@gmail.com
       # Package with Maven & jib profile to build & push docker image
       - name: Release
         run: "./mvnw -B release:prepare release:perform -Pjib -Darguments=\"$RELEASE_ARGUMENTS\""
