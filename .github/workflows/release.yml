@@ -49,7 +49,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 8
-          cache: 'maven'
           server-id: github
           server-username: ${{ github.actor}}
           server-password: ${{ secrets.GITHUB_TOKEN }}
@@ -65,7 +64,7 @@ jobs:
           git config --global user.email "${{ github.actor }}@gmail.com"
       # Package with Maven & jib profile to build & push docker image
       - name: Release
-        run: "./mvnw -B release:prepare release:perform -Pjib -Darguments=\"$RELEASE_ARGUMENTS\""
+        run: "./mvnw -BX release:prepare release:perform -Pjib -Darguments=\"$RELEASE_ARGUMENTS\""
         env:
           RELEASE_ARGUMENTS: -DskipTests=true -Djib.to.auth.username=${{ secrets.HUB_DOCKER_USERNAME }} -Djib.to.auth.password=${{ secrets.HUB_DOCKER_PASSWORD }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
