@@ -44,13 +44,14 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      # JDK 8 para build
+      # JDK 8 para build ['java-version', 'java-package', 'architecture', 'jdkFile', 'server-id', 'server-username', 'server-password', 'settings-path', 'gpg-private-key', 'gpg-passphrase']
       - name: Set up JDK 8
         uses: actions/setup-java@v1
         with:
           java-version: 8
           cache: 'maven'
           server-id: github
+          server-password: ${{ secrets.GITHUB_TOKEN }}
       - name: Cache Maven packages
         uses: actions/cache@v1
         with:
