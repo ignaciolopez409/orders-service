@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - develop
-      - test-*
+      - test
 jobs:
   QUALITY_GATES_AND_TEST:
     runs-on: ubuntu-latest
