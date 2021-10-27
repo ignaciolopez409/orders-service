@@ -37,8 +37,10 @@ jobs:
         with:
           java-version: 8
           server-id: github
-          server-username: ${{ github.actor }}
-          server-password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set mvn settings.xml
+      - uses: s4u/maven-settings-action@v2.4.1
+        with:
+          servers: '[{"id": "github", "username": ${{ github.actor }}, "password": ${{ secrets.GITHUB_TOKEN }}}]'
       - name: Cache Maven packages
         uses: actions/cache@v1
         with:
@@ -51,6 +53,6 @@ jobs:
           git config --global user.email "${{ github.actor }}@gmail.com"
       # Package with Maven & jib profile to build & push docker image
       - name: Release
-        run: "./mvnw -B -X release:prepare release:perform -Dusername=${{ github.actor }} -Dpassword=${{ secrets.GITHUB_TOKEN }} -Pjib -Darguments=\"$RELEASE_ARGUMENTS\""
+        run: "./mvnw -B -X release:prepare release:perform -Pjib -Darguments=\"$RELEASE_ARGUMENTS\""
         env:
           RELEASE_ARGUMENTS: -Djib.to.auth.username=${{ secrets.HUB_DOCKER_USERNAME }} -Djib.to.auth.password=${{ secrets.HUB_DOCKER_PASSWORD }}
