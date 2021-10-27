@@ -64,6 +64,6 @@ jobs:
           git config --global user.email "${{ github.actor }}@gmail.com"
       # Package with Maven & jib profile to build & push docker image
       - name: Release
-        run: "./mvnw -B -X -Dusername=${{ secret.USERNAME }} -DprivateKey=${{ secret.KEY }} release:prepare release:perform -Pjib -Darguments=\"$RELEASE_ARGUMENTS\""
+        run: "./mvnw -B -X -Dusername=${{ secrets.USERNAME }} -DprivateKey=${{ secrets.KEY }} release:prepare release:perform -Pjib -Darguments=\"$RELEASE_ARGUMENTS\""
         env:
           RELEASE_ARGUMENTS: -DskipTests=true -Djib.to.auth.username=${{ secrets.HUB_DOCKER_USERNAME }} -Djib.to.auth.password=${{ secrets.HUB_DOCKER_PASSWORD }}
