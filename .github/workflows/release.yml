@@ -38,7 +38,7 @@ jobs:
           java-version: 8
           server-id: github
       - name: Set mvn settings.xml
-      - uses: s4u/maven-settings-action@v2.4.1
+        uses: s4u/maven-settings-action@v2.4.1
         with:
           servers: '[{"id": "github", "username": ${{ github.actor }}, "password": ${{ secrets.GITHUB_TOKEN }}}]'
       - name: Cache Maven packages
