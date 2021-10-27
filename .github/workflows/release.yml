@@ -60,10 +60,10 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Set user and email
         run: |
-          git config --global user.name "${{ github.actor}}"
-          git config --global user.email "${{ github.actor }}@gmail.com"
+          git config --global user.name "${{ secrets.USERNAME}}"
+          git config --global user.email "${{ secrets.USERNAME }}@gmail.com"
       # Package with Maven & jib profile to build & push docker image
       - name: Release
-        run: "./mvnw -B -X -Dusername=${{ secrets.USERNAME }} -DprivateKey=${{ secrets.KEY }} release:prepare release:perform -Pjib -Darguments=\"$RELEASE_ARGUMENTS\""
+        run: "./mvnw -B -X release:prepare release:perform -Pjib -Darguments=\"$RELEASE_ARGUMENTS\""
         env:
           RELEASE_ARGUMENTS: -DskipTests=true -Djib.to.auth.username=${{ secrets.HUB_DOCKER_USERNAME }} -Djib.to.auth.password=${{ secrets.HUB_DOCKER_PASSWORD }}
