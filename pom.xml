@@ -95,7 +95,7 @@
                             <container>
                                 <mainClass>uy.edu.ort.devops.ordersserviceexample.OrdersServiceExampleApplication</mainClass>
                                 <args>
-                                    <arg>"$APP_ARGS"</arg>
+                                    <arg>$APP_ARGS</arg>
                                 </args>
                                 <ports>
                                     <port>8080</port>
