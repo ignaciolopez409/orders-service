@@ -34,6 +34,7 @@ jobs:
           -Dsonar.organization=obligatorio-devops-2021 \
           -Dsonar.projectKey=orders-service-obligatorio
   BUILD_AND_PUSH-IMAGE:
+    if: "!contains(github.event.head_commit.message, '[ci skip]')"
     runs-on: ubuntu-latest
     permissions:
       contents: read
