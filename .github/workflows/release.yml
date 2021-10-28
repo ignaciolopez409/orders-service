@@ -35,6 +35,7 @@ jobs:
           -Dsonar.organization=obligatorio-devops-2021 \
           -Dsonar.projectKey=obligatorio-devops-2021 \
           -Dsonar.qualitygate.wait=true \
+          -Dsonar.branch.name=master
   RELEASE_AND_PUSH-IMAGE:
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, '[ci skip]')"
