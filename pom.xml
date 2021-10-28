@@ -9,7 +9,7 @@
 	</parent>
 	<groupId>uy.edu.ort.devops</groupId>
 	<artifactId>orders-service</artifactId>
-	<version>0.0.4</version>
+	<version>0.0.5-SNAPSHOT</version>
 	<name>orders-service-example</name>
 	<description>Proyecto Orders Service Obligatorio</description>
 	<properties>
@@ -21,7 +21,7 @@
         <connection>scm:git:https://github.com/ignaciolopez409/orders-service.git</connection>
         <developerConnection>scm:git:https://github.com/ignaciolopez409/orders-service.git</developerConnection>
         <url>https://github.com/ignaciolopez409/orders-service</url>
-      <tag>orders-service-0.0.4</tag>
+      <tag>HEAD</tag>
   </scm>
 
 	<dependencies>
