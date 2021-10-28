@@ -41,6 +41,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+    needs: ['QUALITY_GATES_AND_TEST']
     steps:
       # Checkout
       - uses: actions/checkout@v2
