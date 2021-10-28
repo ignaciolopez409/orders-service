@@ -93,6 +93,14 @@
                                 <tags>${project.version}</tags>
                             </to>
                             <container>
+                                <extraDirectories>
+                                    <permissions>
+                                        <permission>
+                                            <file>/entrypoint.sh</file>
+                                            <mode>755</mode>
+                                        </permission>
+                                    </permissions>
+                                </extraDirectories>
                                 <mainClass>uy.edu.ort.devops.ordersserviceexample.OrdersServiceExampleApplication</mainClass>
                                 <args>
                                     <arg>$APP_ARGS</arg>
