@@ -97,8 +97,7 @@
                                 <args>
                                     <arg>$APP_ARGS</arg>
                                 </args>
-                                <entrypoint>
-                                </entrypoint>
+                                <entrypoint>/entrypoint.sh</entrypoint>
                                 <ports>
                                     <port>8080</port>
                                 </ports>
