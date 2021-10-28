@@ -9,7 +9,7 @@ on:
 jobs:
   QUALITY_GATES_AND_TEST:
     runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, '[sonar skip]')"
+    if: "!contains(github.event.head_commit.message, '[sonar skip]') && ${GITHUB_REF##*/} == 'develop'"
     env:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -34,7 +34,7 @@ jobs:
           ./mvnw -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
           -Dsonar.host.url="https://sonarcloud.io" \
           -Dsonar.organization=obligatorio-devops-2021 \
-          -Dsonar.projectKey=orders-service-obligatorio
+          -Dsonar.projectKey=orders-service-obligatorio \
   BUILD_AND_PUSH-IMAGE:
     if: "!contains(github.event.head_commit.message, '[ci skip]')"
     runs-on: ubuntu-latest
