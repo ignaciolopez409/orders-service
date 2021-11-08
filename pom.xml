@@ -11,7 +11,7 @@
 	<artifactId>orders-services</artifactId>
 	<version>0.0.8-SNAPSHOT</version>
 	<name>orders-service</name>
-	<description>Proyecto Orders Service Obligatorio</description>
+	<description>Orders Service Obligatorio</description>
 	<properties>
 		<java.version>1.8</java.version>
         <project.scm.id>github</project.scm.id>
