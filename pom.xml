@@ -8,7 +8,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>uy.edu.ort.devops</groupId>
-	<artifactId>orders-services-obligarorio</artifactId>
+	<artifactId>orders-services</artifactId>
 	<version>0.0.6-SNAPSHOT</version>
 	<name>orders-service</name>
 	<description>Proyecto Orders Service Obligatorio</description>
