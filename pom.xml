@@ -21,8 +21,7 @@
         <connection>scm:git:https://github.com/ignaciolopez409/orders-service.git</connection>
         <developerConnection>scm:git:https://github.com/ignaciolopez409/orders-service.git</developerConnection>
         <url>https://github.com/ignaciolopez409/orders-service</url>
-      <tag>HEAD</tag>
-  </scm>
+    </scm>
 
 	<dependencies>
 		<dependency>
