@@ -84,7 +84,7 @@ jobs:
           PROJECT="orders"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          sed 's/tag*.*/tag: \"$POM_VERSION\"/' -i environments/$BRANCH/values/$PROJECT.yaml
+          sed "s/tag: *.*/tag: $POM_VERSION/" -i environments/$BRANCH/values/$PROJECT.yaml
           git add environments/$BRANCH/values/$PROJECT.yaml
           git commit -m "[CD] - Changed $PROJECT -> $POM_VERSION"
       - name: Push changes
