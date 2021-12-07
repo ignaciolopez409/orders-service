@@ -60,13 +60,13 @@ jobs:
       - name: Build project with Maven
         run: "./mvnw -B package -Pjib -Djib.to.auth.username=${{ secrets.HUB_DOCKER_USERNAME }} -Djib.to.auth.password=${{ secrets.HUB_DOCKER_PASSWORD }}"
       - name: get-pom-version
-        id: pom-version
-        uses: CptMokoena/maven-get-version-action@1.0.3
+        run: |
       - name: Extract branch name
         shell: bash
         run: |
+          VERSION=$(./mvnw -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.6.0:exec)
           echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-          echo "##[set-output name=pom_version;]$(echo ${{ steps.pom-version.outputs.version }})"
+          echo "##[set-output name=pom_version;]$(echo $VERSION)"
         id: compile_output
     outputs:
       POM_VERSION: ${{ steps.compile_output.outputs.pom_version }}
