@@ -37,6 +37,9 @@ jobs:
         run: "./mvnw -B -X release:prepare release:perform -Dusername=${{ github.actor }} -Dpassword=${{ secrets.GITHUB_TOKEN }} -Pjib -Darguments=\"$RELEASE_ARGUMENTS\""
         env:
           RELEASE_ARGUMENTS: -Djib.to.auth.username=${{ secrets.HUB_DOCKER_USERNAME }} -Djib.to.auth.password=${{ secrets.HUB_DOCKER_PASSWORD }}
+    outputs:
+      POM_VERSION: ${{ steps.compile_output.outputs.pom_version }}
+      BRANCH: ${{ steps.compile_output.outputs.pom_version }}
   DEPLOY:
     runs-on: ubuntu-latest
     needs: [ 'BUILD_AND_PUSH-IMAGE' ]
@@ -47,8 +50,8 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       - run: |
-          POM_VERSION="${{ steps.BUILD_AND_PUSH-IMAGE.outputs.version }}"
-          BRANCH="${{ steps.extract_branch.outputs.branch }}"
+          POM_VERSION="${{ needs..outputs.pom_version }}"
+          BRANCH="${{ steps.compile_output.outputs.branch }}"
           PROJECT="orders"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
