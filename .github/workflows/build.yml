@@ -71,9 +71,10 @@ jobs:
     needs: ['BUILD_AND_PUSH-IMAGE']
     steps:
       - uses: actions/checkout@v2
-        repository: 'ignaciolopez409/infra-obligatorio-devops'
-        fetch-depth: 0
-        persist-credentials: false
+        with:
+          repository: 'ignaciolopez409/infra-obligatorio-devops'
+          fetch-depth: 0
+          persist-credentials: false
       - run: |
           POM_VERSION="${{ steps.BUILD_AND_PUSH-IMAGE.outputs.version }}"
           BRANCH="${{ steps.extract_branch.outputs.branch }}"
@@ -82,7 +83,7 @@ jobs:
           git config --local user.name "github-actions[bot]"
           sed 's/tag*.*/tag: "$POM_VERSION"' -i environments/$BRANCH/values/$PROJECT.yaml
           git add environments/$BRANCH/values/$PROJECT.yaml
-          git commit -m "[CD] - ${PROJECT} -> ${{steps.BUILD_AND_PUSH-IMAGE.outputs.version}}"
+          git commit -m "[CD] - $PROJECT -> ${{steps.BUILD_AND_PUSH-IMAGE.outputs.version}}"
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
