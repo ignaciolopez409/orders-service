@@ -61,10 +61,12 @@ jobs:
         run: "./mvnw -B package -Pjib -Djib.to.auth.username=${{ secrets.HUB_DOCKER_USERNAME }} -Djib.to.auth.password=${{ secrets.HUB_DOCKER_PASSWORD }}"
       - name: get-pom-version
         id: pom-version
-        uses: CptMokoena/maven-get-version-action@master
+        uses: CptMokoena/maven-get-version-action@1.0.3
       - name: Extract branch name
         shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        run: |
+          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+          echo "##[set-output name=pom_version;]$(echo ${{ steps.pom-version.outputs.version }})"
         id: extract_branch
   DEPLOY:
     runs-on: ubuntu-latest
