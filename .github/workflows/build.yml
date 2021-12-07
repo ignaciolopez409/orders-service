@@ -59,3 +59,32 @@ jobs:
       # Package con Maven
       - name: Build project with Maven
         run: "./mvnw -B package -Pjib -Djib.to.auth.username=${{ secrets.HUB_DOCKER_USERNAME }} -Djib.to.auth.password=${{ secrets.HUB_DOCKER_PASSWORD }}"
+      - name: get-pom-version
+        id: pom-version
+        uses: CptMokoena/maven-get-version-action@master
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+  DEPLOY:
+    runs-on: ubuntu-latest
+    needs: ['BUILD_AND_PUSH-IMAGE']
+    steps:
+      - uses: actions/checkout@v2
+        repository: 'ignaciolopez409/infra-obligatorio-devops'
+        fetch-depth: 0
+        persist-credentials: false
+      - run: |
+          POM_VERSION="${{ steps.BUILD_AND_PUSH-IMAGE.outputs.version }}"
+          BRANCH="${{ steps.extract_branch.outputs.branch }}"
+          PROJECT="orders"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          sed 's/tag*.*/tag: "$POM_VERSION"' -i environments/$BRANCH/values/$PROJECT.yaml
+          git add environments/$BRANCH/values/$PROJECT.yaml
+          git commit -m "[CD] - ${PROJECT} -> ${{steps.BUILD_AND_PUSH-IMAGE.outputs.version}}"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.PUSH_TOKEN }}
+          branch: ${{ steps.extract_branch.outputs.branch }}
