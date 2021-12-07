@@ -79,6 +79,7 @@ jobs:
         with:
           repository: 'ignaciolopez409/infra-obligatorio-devops'
           persist-credentials: false
+          ref: 'main'
       - run: |
           POM_VERSION="${{ needs.BUILD_AND_PUSH_IMAGE.outputs.POM_VERSION }}"
           BRANCH="${{ needs.BUILD_AND_PUSH_IMAGE.outputs.BRANCH }}"
