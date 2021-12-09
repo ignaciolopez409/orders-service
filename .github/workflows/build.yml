@@ -84,7 +84,7 @@ jobs:
           git config --local user.name "github-actions[bot]"
           sed "s/tag: *.*/tag: $POM_VERSION/" -i environments/$BRANCH/values/$PROJECT.yaml
           if [ $(git status --porcelain | wc -l) -eq "0" ]; then
-            echo "🔴 $PROJECT -> Not updated $POM_VERSION in $BRANCH."
+            echo "🔘 $PROJECT -> Not updated $POM_VERSION in $BRANCH."
             NEED_PUSH=false
           else
             MSG="🟢 $PROJECT -> Updated $POM_VERSION in $BRANCH. Executing [CD] | $BRANCH"
