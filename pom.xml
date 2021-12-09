@@ -1,61 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.5.5</version>
-		<relativePath /> <!-- lookup parent from repository -->
-	</parent>
-	<groupId>uy.edu.ort.devops</groupId>
-	<artifactId>orders-services</artifactId>
-	<version>0.0.10-SNAPSHOT</version>
-	<name>orders-service</name>
-	<description>Orders Service Obligatorio</description>
-	<properties>
-		<java.version>1.8</java.version>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.5.5</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>uy.edu.ort.devops</groupId>
+    <artifactId>orders-services</artifactId>
+    <version>0.0.11-SNAPSHOT</version>
+    <name>orders-service</name>
+    <description>Orders Service Obligatorio</description>
+    <properties>
+        <java.version>1.8</java.version>
         <project.scm.id>github</project.scm.id>
-	</properties>
+    </properties>
 
     <scm>
         <connection>scm:git:https://github.com/ignaciolopez409/orders-service.git</connection>
         <developerConnection>scm:git:https://github.com/ignaciolopez409/orders-service.git</developerConnection>
         <url>https://github.com/ignaciolopez409/orders-service</url>
-      <tag>HEAD</tag>
-  </scm>
+    </scm>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-						<configuration>
-							<classifier>spring-boot</classifier>
-							<mainClass>
-								uy.edu.ort.devops.ordersserviceexample.OrdersServiceExampleApplication
-							</mainClass>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>spring-boot</classifier>
+                            <mainClass>
+                                uy.edu.ort.devops.ordersserviceexample.OrdersServiceExampleApplication
+                            </mainClass>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
@@ -64,8 +64,8 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
-		</plugins>
-	</build>
+        </plugins>
+    </build>
     <profiles>
         <profile>
             <id>jib</id>
@@ -101,7 +101,8 @@
                                 <tags>${project.version}</tags>
                             </to>
                             <container>
-                                <mainClass>uy.edu.ort.devops.ordersserviceexample.OrdersServiceExampleApplication</mainClass>
+                                <mainClass>uy.edu.ort.devops.ordersserviceexample.OrdersServiceExampleApplication
+                                </mainClass>
                                 <entrypoint>/entrypoint.sh</entrypoint>
                                 <ports>
                                     <port>8080</port>

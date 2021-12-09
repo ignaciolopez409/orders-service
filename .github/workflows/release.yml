@@ -3,8 +3,6 @@ on:
   push:
     branches:
       - master
-#  pull_request:
-#    types: [ closed ]
 jobs:
   RELEASE_AND_PUSH-IMAGE:
     runs-on: ubuntu-latest
@@ -44,7 +42,7 @@ jobs:
           RELEASE_ARGUMENTS: -Djib.to.auth.username=${{ secrets.HUB_DOCKER_USERNAME }} -Djib.to.auth.password=${{ secrets.HUB_DOCKER_PASSWORD }}
     outputs:
       POM_VERSION: ${{ steps.compile_output.outputs.pom_version }}
-      BRANCH: ${{ steps.compile_output.outputs.pom_version }}
+      BRANCH: ${{ steps.compile_output.outputs.branch }}
   DEPLOY:
     runs-on: ubuntu-latest
     needs: [ 'BUILD_AND_PUSH_IMAGE' ]

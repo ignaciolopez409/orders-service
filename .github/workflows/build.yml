@@ -35,9 +35,6 @@ jobs:
   BUILD_AND_PUSH_IMAGE:
     if: "!contains(github.event.head_commit.message, '[ci skip]')"
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
     needs: ['QUALITY_GATES_AND_TEST']
     steps:
       # Checkout
