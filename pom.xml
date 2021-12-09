@@ -10,7 +10,7 @@
     </parent>
     <groupId>uy.edu.ort.devops</groupId>
     <artifactId>orders-services</artifactId>
-    <version>0.0.10-SNAPSHOT</version>
+    <version>0.0.11-SNAPSHOT</version>
     <name>orders-service</name>
     <description>Orders Service Obligatorio</description>
     <properties>
